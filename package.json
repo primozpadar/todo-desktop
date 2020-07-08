@@ -1,0 +1,54 @@
+{
+  "name": "todo-desktop",
+  "version": "0.1.0",
+  "private": true,
+  "main": "start.js",
+  "homepage": "./",
+  "dependencies": {
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.5.0",
+    "@testing-library/user-event": "^7.2.1",
+    "@types/firebase": "^3.2.1",
+    "@types/jest": "^24.9.1",
+    "@types/node": "^12.12.48",
+    "@types/react": "^16.9.41",
+    "@types/react-dom": "^16.9.8",
+    "@types/styled-components": "^5.1.1",
+    "electron-is-dev": "^1.2.0",
+    "firebase": "^7.15.5",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-scripts": "3.4.1",
+    "styled-components": "^5.1.1",
+    "typescript": "^3.7.5"
+  },
+  "scripts": {
+    "electron:start": "cross-env NODE_ENV=dev nodemon --exec \"\"electron .\"\"",
+    "electron:build": "electron-builder",
+    "react:start": "cross-env BROWSER=none SKIP_PREFLIGHT_CHECK=true react-scripts start",
+    "react:build": "react-scripts build",
+    "react:test": "react-scripts test",
+    "react:eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.2",
+    "electron": "^9.1.0",
+    "electron-reload": "^1.5.0",
+    "nodemon": "^2.0.4"
+  }
+}
