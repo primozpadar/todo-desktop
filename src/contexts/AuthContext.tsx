@@ -14,10 +14,6 @@ const AuthContextProvider: React.FC = ({ children }) => {
   const [currentUser, setCurrentUser] = useState<User>("loading");
 
   useEffect(() => {
-    console.log(currentUser);
-  }, [currentUser]);
-
-  useEffect(() => {
     app.auth().onAuthStateChanged((user) => {
       if (user) {
         setCurrentUser(user);

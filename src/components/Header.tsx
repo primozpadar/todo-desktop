@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 import { TodoContext } from "../contexts/TodoContext";
 import { ReactComponent as IconAdd } from "../assets/add.svg";
+import Settings from "./Settings";
 
 const Header: React.FC = () => {
   const { dispatch } = useContext(TodoContext);
@@ -27,27 +28,37 @@ const Header: React.FC = () => {
   });
 
   return (
-    <Container onSubmit={submitHandler} visible={visible}>
-      <AddBtn onClick={() => setVisible(!visible)}>
-        <IconAdd />
-      </AddBtn>
-      <Input ref={inputRef} onChange={(e) => setVal(e.target.value)} value={val} required />
+    <Container>
+      <SearchContainer onSubmit={submitHandler} visible={visible}>
+        <AddBtn onClick={() => setVisible(!visible)}>
+          <IconAdd />
+        </AddBtn>
+        <Input ref={inputRef} onChange={(e) => setVal(e.target.value)} value={val} required />
+      </SearchContainer>
+      <Settings />
     </Container>
   );
 };
 
-interface ContainerProps {
+const Container = styled.div`
+  display: grid;
+  align-items: center;
+  grid-template-columns: 1fr 2rem;
+  gap: 1rem;
+`;
+
+interface SearchContainerProps {
   visible?: boolean;
 }
 
-const Container = styled.form`
+const SearchContainer = styled.form`
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  background: var(--zelena);
+  background: var(--modra);
   border-radius: 0.2rem;
   height: 2.4rem;
-  width: ${(props: ContainerProps) => (props.visible ? "100%" : "2.4rem")};
+  width: ${(props: SearchContainerProps) => (props.visible ? "100%" : "2.4rem")};
   transition: width 0.3s ease-in-out;
   overflow: hidden;
 `;

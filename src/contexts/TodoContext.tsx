@@ -50,10 +50,6 @@ const TodoContextProvider: React.FC = ({ children }) => {
       });
   }, []);
 
-  useEffect(() => {
-    console.log(state);
-  }, [state]);
-
   return <TodoContext.Provider value={{ state, dispatch }}>{children}</TodoContext.Provider>;
 };
 
