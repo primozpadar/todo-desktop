@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { app } from "../config/firebase";
 
+const { ipcRenderer } = window.require("electron");
+
 const Login: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [pass, setPass] = useState<string>("");
@@ -23,8 +25,11 @@ const Login: React.FC = () => {
     <Container onSubmit={handleLogin}>
       <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
       <Input type="password" value={pass} onChange={(e) => setPass(e.target.value)} required />
-      {err ? <ErrMsg>Napaka pri prijavi!</ErrMsg> : null}
-      <Button>Prijava</Button>
+      {err ? <ErrMsg>Login error!</ErrMsg> : null}
+      <ButtonContainer>
+        <CloseBtn onClick={() => ipcRenderer.send("closeApp")}>Close</CloseBtn>
+        <Button>Login</Button>
+      </ButtonContainer>
     </Container>
   );
 };
@@ -33,7 +38,6 @@ const Container = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
 `;
 
 const Input = styled.input`
@@ -47,11 +51,22 @@ const Input = styled.input`
   }
 `;
 
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
 const Button = styled.button`
   color: var(--crna);
   background: var(--zelena);
   padding: 0.4rem 2rem;
   border-radius: 10rem;
+  font-weight: bold;
+  cursor: pointer;
+`;
+
+const CloseBtn = styled.div`
+  color: var(--rdeca);
   font-weight: bold;
   cursor: pointer;
 `;

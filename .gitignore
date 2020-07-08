@@ -24,3 +24,6 @@ yarn-error.log*
 
 # firebase - config
 src/config/firebase.ts
+
+# electron builder
+/dist

@@ -2,8 +2,26 @@
   "name": "todo-desktop",
   "version": "0.1.0",
   "private": true,
-  "main": "start.js",
+  "license": "MIT",
+  "description": "TODO app for desktop",
+  "author": "Primož Padar <primoz.padar1@gmail.com>",
+  "main": "electron.js",
   "homepage": "./",
+  "build": {
+    "productName": "Todo app",
+    "appId": "com.todo",
+    "win": {
+      "target": "nsis",
+      "icon": "build/todo_icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": true,
+      "allowToChangeInstallationDirectory": true,
+      "installerSidebar": "build/sidebar.bmp",
+      "deleteAppDataOnUninstall": true
+    }
+  },
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
@@ -25,9 +43,10 @@
   },
   "scripts": {
     "electron:start": "cross-env NODE_ENV=dev nodemon --exec \"\"electron .\"\"",
+    "preelectron:build": "cpx electron.js build",
     "electron:build": "electron-builder",
     "react:start": "cross-env BROWSER=none SKIP_PREFLIGHT_CHECK=true react-scripts start",
-    "react:build": "react-scripts build",
+    "react:build": "cross-env SKIP_PREFLIGHT_CHECK=true GENERATE_SOURCEMAP=false react-scripts build",
     "react:test": "react-scripts test",
     "react:eject": "react-scripts eject"
   },
@@ -47,8 +66,10 @@
     ]
   },
   "devDependencies": {
+    "cpx": "^1.5.0",
     "cross-env": "^7.0.2",
     "electron": "^9.1.0",
+    "electron-builder": "^22.7.0",
     "nodemon": "^2.0.4"
   }
 }

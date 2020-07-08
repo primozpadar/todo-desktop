@@ -4,6 +4,12 @@ const isDev = require("electron-is-dev");
 const Store = require("electron-store");
 const store = new Store();
 
+//prevent multiple
+const gotTheLock = app.requestSingleInstanceLock();
+if (!gotTheLock) {
+  app.quit();
+}
+
 const createWindow = () => {
   const customWidth = 500;
   let index = Number(store.get("lastDisplay")) || 0;
@@ -34,11 +40,10 @@ const createWindow = () => {
     title: "Todo",
   });
 
-  changeDisplay(mainWindow);
-
   // mainWindow.webContents.openDevTools();
-  mainWindow.removeMenu();
 
+  changeDisplay(mainWindow);
+  mainWindow.removeMenu();
   mainWindow.loadURL(
     isDev ? "http://localhost:3000" : `file://${path.join(__dirname, "../build/index.html")}`
   );
