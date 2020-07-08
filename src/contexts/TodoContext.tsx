@@ -38,7 +38,8 @@ const TodoContextProvider: React.FC = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
-    db.collection("todos")
+    const unsubscribe = db
+      .collection("todos")
       .orderBy("created_at", "desc")
       .onSnapshot((snapshot) => {
         const data = snapshot.docs.map((doc) => {
@@ -48,6 +49,7 @@ const TodoContextProvider: React.FC = ({ children }) => {
         }) as TodoType[];
         dispatch({ type: "INIT", data });
       });
+    return () => unsubscribe();
   }, []);
 
   return <TodoContext.Provider value={{ state, dispatch }}>{children}</TodoContext.Provider>;

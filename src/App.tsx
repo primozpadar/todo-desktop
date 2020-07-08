@@ -5,6 +5,7 @@ import Header from "./components/Header";
 import Login from "./components/Login";
 import Todos from "./components/Todos";
 
+import TodoContextProvider from "./contexts/TodoContext";
 import { AuthContext } from "./contexts/AuthContext";
 
 const App: React.FC = () => {
@@ -12,10 +13,10 @@ const App: React.FC = () => {
   return (
     <Container>
       {currentUser === "loading" ? null : currentUser ? (
-        <>
+        <TodoContextProvider>
           <Header />
           <Todos />
-        </>
+        </TodoContextProvider>
       ) : (
         <Login />
       )}
