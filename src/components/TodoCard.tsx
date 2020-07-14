@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useMemo } from "react";
 import styled from "styled-components";
 
 import { ReactComponent as IconDone } from "../assets/done.svg";
@@ -15,9 +15,14 @@ interface Props {
 const TodoCard = ({ text, _id, done }: Props) => {
   const { dispatch } = useContext(TodoContext);
 
+  const textRender = useMemo(() => {
+    const regexpURL = /(\b(https?):\/\/([-A-Z0-9+&@#%?=~_|!:,.;]*)([-A-Z0-9+&@#%?/=~_|!:,.;]*)[-A-Z0-9+&@#/%=~_|])/gi;
+    return text.replace(regexpURL, "<a href='$1' target='_blank'>$3</a>");
+  }, [text]);
+
   return (
     <Card done={done}>
-      <p>{text}</p>
+      <p dangerouslySetInnerHTML={{ __html: textRender }}></p>
       <BtnContainer>
         {done ? (
           <>

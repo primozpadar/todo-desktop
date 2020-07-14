@@ -1,4 +1,4 @@
-const { app, BrowserWindow, screen, ipcMain } = require("electron");
+const { app, BrowserWindow, screen, ipcMain, shell } = require("electron");
 const path = require("path");
 const isDev = require("electron-is-dev");
 const Store = require("electron-store");
@@ -38,6 +38,12 @@ const createWindow = () => {
     movable: false,
     resizable: false,
     title: "Todo",
+  });
+
+  //open any url in default browser
+  mainWindow.webContents.on("new-window", (e, url) => {
+    e.preventDefault();
+    shell.openExternal(url);
   });
 
   // mainWindow.webContents.openDevTools();
